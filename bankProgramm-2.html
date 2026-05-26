@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bankProgramm.css">
+
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+    }
+
+    .loginCT {
+        width: 480px;
+        height: 90vh;
+        min-height: 540px;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        padding: 1em;
+        background-color: rgba(255, 255, 255, 0.925);
+        backdrop-filter: blur(10px);
+        border-radius: 42px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        box-shadow: 0px 0px 10px 0px black;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    h1 {
+        text-align: center;
+        color: rgb(0, 0, 0);
+        font-weight: bolder;
+    }
+
+    /* warnings */
+
+    .info,
+    .sucess {
+        font-size: 1.2em;
+        font-family: sans-serif;
+        color: rgb(137, 18, 228);
+        font-size: 1em;
+        font-weight: bold;
+    }
+
+    .loginCT>form {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        line-height: 1.8em;
+    }
+
+    input {
+        margin: 0px 0px 15px;
+        border: none;
+        border: none;
+        color: gray;
+        outline: none;
+    }
+
+    input:focus {
+        border: none;
+        color: black;
+    }
+
+    input:hover {
+        filter: brightness(104%);
+    }
+
+    #Username {
+        width: 100%;
+        padding: 1em;
+        box-shadow: 0px 1px 0px 0px;
+    }
+
+    #password {
+        width: 100%;
+        padding: 1em;
+        box-shadow: 0px 1px 0px 0px;
+    }
+
+    #submitBTN {
+        margin-top: 10px;
+        padding: 0.5em;
+        font-size: 1em;
+        border-radius: 50px;
+        border: none;
+        background-image: #005500;
+      //  background-image: url("purple_bluewpp.jpg");
+        color: white;
+        cursor: pointer;
+        font-size: large;
+        font-weight: 600;
+        filter: brightness(150%);
+    }
+
+    #submitBTN:hover {
+        transition: filter 0.5s ease;
+        filter: brightness(190%);
+    }
+
+    .optionCT {
+        width: 480px;
+        min-height: 355px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1em;
+        background-color: #1a202c;
+        /* backdrop-filter: blur(10px); */
+        border-radius: 42px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        box-shadow: 0px 0px 10px 0px black;
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+    }
+
+    .optionCT>form {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        align-self: center;
+    }
+
+    .msg {
+        font-weight: 100;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.5em;
+        color: white;
+    }
+
+    .optionCT>form>p {
+        margin: 0;
+        align-self: flex-start;
+        padding: 0 5px 5px 5px;
+        font-size: 10pt;
+        font-family: Arial, Helvetica, sans-serif;
+        color: rgb(53, 228, 18);
+
+    }
+
+    #UChoiceInput {
+        width: 80%;
+        padding: 1em;
+        background-color: transparent;
+        border: 2px solid white;
+        color: white;
+    }
+
+
+
+    li {
+        padding: 5px;
+        list-style-type: none;
+        align-self: flex-start;
+    }
+
+    input[type="number"] {
+        display: none;
+        -moz-appearance: textfield;
+        width: 100%;
+        padding: 1em;
+        background-color: transparent;
+        border: 2px solid white;
+        color: white;
+    }
+
+    .checkPswInput {
+        display: none;
+        width: 100%;
+        padding: 1em;
+        background-color: transparent;
+        border: 2px solid white;
+        color: white;
+    }
+
+    .checkPswInput:focus {
+        background-color: transparent;
+        border: 2px solid white;
+        color: white;
+    }
+
+    .changePswInput {
+        display: none;
+        width: 100%;
+        padding: 1em;
+        background-color: transparent;
+        border: 2px solid white;
+        color: white;
+    }
+
+    .changePswInput:focus {
+        background-color: transparent;
+        border: 2px solid white;
+        color: white;
+    }
+
+    .exitInput {
+        width: 90%;
+        margin-top: 10px;
+        padding: 0.5em;
+        font-size: 1em;
+        border-radius: 50px;
+        border: none;
+        background-image: url("purple_bluewpp.jpg");
+        color: white;
+        cursor: pointer;
+        font-size: large;
+        font-weight: 600;
+    }
+
+    .exitInput:hover {
+        transition: filter 0.5s ease;
+        filter: brightness(150%);
+    }
+</style>
+
+<body>
+    <div class="loginCT">
+        <h1>User Login</h1>
+
+        <form action="bankProgramm.html" autocomplete="off">
+            <p class="info">Bitte Name und Passwort eingeben</p>
+            <label for="username">Username</label>
+            <input type="text" id="Username" placeholder="username" value="">
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="password" value="">
+
+
+            <input type="submit" id="submitBTN" value="Login">
+            <p class="sucess">test</p>
+        </form>
+    </div>
+
+    <div class="optionCT">
+        <h1 class="msg"></h1>
+        <form action="bankProgramm.html">
+            <input type="text" id="UChoiceInput" placeholder="choice?">
+            <li class="Uchoices">einzahlung</li>
+            <input class="depositInput" type="number" placeholder="betrag" value="">
+            <p class="text1"></p>
+            <li class="Uchoices">abhebung</li>
+            <input class="withdrawInput" type="number" placeholder="betrag" value="">
+            <p class="text2"></p>
+            <li class="Uchoices">kontostand prüfen</li>
+            <input class="checkBalanceInput" type="number" placeholder="press enter to see your balance" value="">
+            <p class="text3"></p>
+            <li class="Uchoices">passwort abfragen</li>
+            <input class="checkPswInput" type="text" placeholder="press enter to see your password" value="">
+            <p class="text4"></p>
+            <li class="Uchoices">passwort ändern</li>
+            <input class="changePswInput" type="password" placeholder="new password" value="">
+            <p class="text5"></p>
+            <input class="exitInput" type="button" value="abmelden">
+    </div>
+    </form>
+
+
+    <script>
+
+        const submit = document.getElementById('submitBTN').addEventListener('click', function (event) {
+            event.preventDefault()
+            saveUserData()
+
+        })
+
+
+        // page1
+
+        const login = document.querySelector('.loginCT');
+
+
+        function toogleCT() {
+            document.addEventListener('keydown', function (event) {
+
+                if (event.ctrlKey) {
+
+
+
+
+                    if (login.style.display === 'none') {
+
+                        login.style.display = 'flex';
+                        optionsCT.style.display = 'none'
+                    } else {
+
+                        login.style.display = 'none';
+                        optionsCT.style.display = 'flex'
+                    }
+                }
+
+                if (event.shiftKey) {
+                    toogleInputs()
+
+                }
+            });
+        }
+
+
+        toogleCT()
+
+
+
+        // data
+        const user = document.getElementById('Username');
+        const password = document.getElementById('password');
+
+        // options
+        const optionsCT = document.querySelector('.optionCT');
+        const msg = document.querySelector('.msg');
+
+        // Uchooices
+        const Uchoices = document.querySelectorAll('.Uchoices');
+
+        // choice Inputs
+        const UChoiceInput = document.getElementById('UChoiceInput');
+
+        // info text element
+
+        const info1 = document.querySelector('.text1');
+        const info2 = document.querySelector('.text2');
+        const info3 = document.querySelector('.text3');
+        const info4 = document.querySelector('.text4');
+        const info5 = document.querySelector('.text5');
+
+        UChoiceInput.addEventListener('keydown', function (event) {
+
+            if (event.key === 'Enter') {
+                getUchoice()
+            } else {
+                return
+            }
+
+        })
+
+
+        // input fields
+        const depositInput = document.querySelector('.depositInput');
+        depositInput.addEventListener('keydown', function (event) {
+
+            if (event.key === 'Enter') {
+                deposit()
+            } else {
+                return
+            }
+
+        })
+
+        const withdrawInput = document.querySelector('.withdrawInput');
+        withdrawInput.addEventListener('keydown', function (event) {
+
+            if (event.key === 'Enter') {
+                withdraw()
+            } else {
+                return
+            }
+
+        })
+
+        const checkBalanceInput = document.querySelector('.checkBalanceInput');
+        checkBalanceInput.addEventListener('keydown', function (event) {
+
+            if (event.key === 'Enter') {
+                checkBalance()
+            } else {
+                return
+            }
+
+        })
+
+        const checkPswInput = document.querySelector('.checkPswInput');
+        checkPswInput.addEventListener('keydown', function (event) {
+
+            if (event.key === 'Enter') {
+                checkPsw()
+            } else {
+                return
+            }
+
+        })
+
+        const changePswInput = document.querySelector('.changePswInput');
+        changePswInput.addEventListener('keydown', function (event) {
+
+            if (event.key === 'Enter') {
+                changePsw()
+            } else {
+                return
+            }
+
+        })
+
+        const exitBtn = document.querySelector('.exitInput');
+
+        exitBtn.addEventListener('click', function (event) {
+            event.preventDefault()
+            optionsCT.style.display = 'none';
+            login.style.display = 'flex';
+        })
+
+
+
+
+
+        function saveUserData() {
+            let Uvalue = user.value;
+            let Pvalue = password.value;
+
+            let getUser = localStorage.getItem('Username');
+            let getPsw = localStorage.getItem('Password');
+
+            if (getUser && getPsw) {
+                checkAcces(Uvalue, Pvalue)
+                console.log('checked')
+                clear()
+
+            } else {
+                let username = localStorage.setItem('Username', Uvalue)
+                let psw = localStorage.setItem('Password', Pvalue)
+
+                document.querySelector('.sucess').textContent = 'saved'
+                clear()
+            }
+
+
+
+
+        }
+
+        function checkAcces(user, password) {
+            let sucess = document.querySelector('.sucess')
+
+            let getUser = localStorage.getItem('Username');
+            let getPsw = localStorage.getItem('Password');
+
+            if (user == getUser && password == getPsw) {
+                console.log(getUser)
+                console.log(getPsw)
+
+                sucess.textContent = 'access'
+                console.log(sucess.textContent)
+                clear()
+                hide()
+                msg.textContent = `Hallo ${user} was möchtest du heute erledigen?`
+
+
+
+            } else if (user !== getUser && password !== getPsw) {
+                console.log(user)
+                console.log(password)
+
+                sucess.textContent = 'no acess'
+            }
+
+
+        }
+
+        function getUchoice() {
+            // choice Input
+            let choice = UChoiceInput.value;
+
+
+            // let DepValue = depositInput.value
+            // let WdrwValue = withdrawInput.value
+            // let BlncValue = checkBalanceInput.value
+            // let chekPswValue = checkPswInput.value
+            // let changePswValue = changePswInput.value
+
+            switch (choice) {
+                case 'einzahlung':
+                    clear()
+                    depositInput.style.display = 'block';
+                    return;
+
+                    deposit()
+                    console.log(choice + ' succes')
+                    break;
+                case 'abhebung':
+                    clear()
+                    withdrawInput.style.display = 'block';
+                    return;
+
+                    withdraw()
+                    break;
+                case 'kontostand prüfen':
+                    clear()
+                    checkBalanceInput.style.display = 'block';
+                    return;
+
+                    checkBalance()
+                    break;
+                case 'passwort abfragen':
+                    clear()
+                    checkPswInput.style.display = 'block';
+                    return;
+
+                    checkPsw()
+                    break;
+                case 'passwort ändern':
+                    clear()
+                    changePswInput.style.display = 'block';
+                    return;
+
+                    changePsw()
+                    break;
+            }
+
+        }
+
+        function deposit() {
+
+            let amount = depositInput.value;
+
+            let storedbalance = parseInt(localStorage.getItem('balance'));
+
+            if (storedbalance) {
+
+                if (amount !== NaN && amount > 0 && amount < 1000000) {
+                    storedbalance += parseInt(amount);
+
+                    console.log(storedbalance)
+
+                    update(storedbalance);
+                    console.log(`es wurden ${amount}€ zu ihrem konnto hinzugefügt`)
+
+                    textContent(info1, 'rgb(53, 228, 18)', `es wurdern erfolgreich ${amount}€ zu ihrem Konto hinzugefügt`)
+                } else {
+                    textContent(info1, 'red', `Der betrag ${amount}€ ist ungülltig`)
+
+                }
+
+            } else {
+                update(amount);
+                console.log(amount + " wurde geupdatet")
+            }
+            clearResults(depositInput);
+        }
+
+
+
+        function withdraw() {
+            let amount = withdrawInput.value;
+
+            let reduction = parseInt(localStorage.getItem('balance'));
+
+            if (amount <= reduction && amount !== NaN && amount > 0) {
+
+                reduction -= parseInt(amount);
+                update(reduction);
+                console.log(reduction);
+                console.log(`es wurden ${amount}€ von ihrem konnto abgehoben`);
+
+                textContent(info2, 'rgb(53, 228, 18)', `es wurden ${amount}€ von ihrem konnto abgehoben`);
+            } else {
+                textContent(info2, 'red', `Der betrag ${amount}€ übersteigt ihr guthaben`)
+            }
+            clearResults(withdrawInput)
+        }
+
+
+        function checkBalance() {
+            let currentBalance = localStorage.getItem('balance');
+
+            if (currentBalance) {
+                checkBalanceInput.value = currentBalance;
+                textContent(info3, 'rgb(53, 228, 18)', `Der aktuelle Kontostand beträgt ${currentBalance}€`)
+            }
+            return;
+        }
+
+        function checkPsw() {
+            let currentPsw = localStorage.getItem('Password');
+
+            if (currentPsw) {
+                checkPswInput.value = currentPsw;
+                console.log('sucesful')
+                textContent(info4, 'rgb(53, 228, 18)', `Das aktuelle passwort ist ${currentPsw}`);
+
+            } else {
+                console.log('not sucesful')
+            }
+            return;
+        }
+
+        function changePsw() {
+            let newPsw = changePswInput.value;
+            let storedPsw = localStorage.getItem('Password');
+            console.log(storedPsw)
+
+            for (let char of newPsw) {
+                if (char !== '&' && char !== '<' && char !== '"' && char !== '@' && char !== '-' && char !== '+') {
+                    console.log(char)
+
+                    clearResults(changePswInput)
+
+                } else {
+                    alert('some charakter arent allowed')
+                    console.log(newPsw)
+                    clearResults(changePswInput)
+                    return;
+                }
+
+            }
+            localStorage.setItem('Password', newPsw)
+            textContent(info5, 'rgb(53, 228, 18)', `passwort wurde erfolgreich geändert`)
+            clearResults(changePswInput);
+        }
+
+
+
+
+
+        function textContent(classof, color, text) {
+            classof.style.color = color;
+            classof.textContent = text;
+        }
+
+
+        function update(monney) {
+            localStorage.setItem('balance', monney.toString())
+        }
+
+        function clearResults(input) {
+            input.value = '';
+        }
+
+        function hide() {
+            if (login.style.display = 'flex') {
+                login.style.display = 'none';
+            }
+
+            if (optionsCT.style.display = 'none') {
+                optionsCT.style.display = 'flex';
+            }
+
+        }
+
+        function clear() {
+            if (login) {
+                user.value = '';
+                password.value = '';
+            }
+            if (optionsCT) {
+                UChoiceInput.value = '';
+            }
+
+        }
+
+        function toogleInputs() {
+            document.querySelector('.depositInput').style.display = 'block';
+            document.querySelector('.withdrawInput').style.display = 'block';
+            document.querySelector('.checkBalanceInput').style.display = 'block';
+            document.querySelector('.checkPswInput').style.display = 'block';
+            document.querySelector('.changePswInput').style.display = 'block';
+        }
+
+        // function catchError() {
+        //     console.log()
+        // }
+
+
+
+    </script>
+</body>
+
+</html>
+<!-- 
+const depositInput = document.querySelector('.depositInput');
+const withdrawInput = document.querySelector('.withdrawInput');
+const checkBalanceInput = document.querySelector('.checkBalanceInput');
+const checkPswInput = document.querySelector('.checkPswInput');
+const changePswInput = document.querySelector('.changePswInput'); -->
